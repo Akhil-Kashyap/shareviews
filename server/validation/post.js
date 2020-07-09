@@ -1,0 +1,38 @@
+const validator = require("validator");
+const isEmpty = require("./is_empty");
+
+module.exports = function validatePostInput(data) {
+  let errors = {};
+
+  data.text = !isEmpty(data.text) ? data.text : "";
+  data.keyword = !isEmpty(data.keyword) ? data.keyword : "";
+
+  if (!validator.isLength(data.keyword, { min: 4, max: 15 })) {
+    errors.keyword = "Keyword must be between 4 and 15 characters";
+  }
+
+  if (validator.isEmpty(data.keyword)) {
+    errors.keyword = "Keyword is required";
+  }
+
+  if (!validator.isLength(data.text, { min: 10, max: 300 })) {
+    errors.text = "Post must be between 10 and 300 characters";
+  }
+
+  if (validator.isEmpty(data.text)) {
+    errors.text = "Text field is required";
+  }
+
+  if (data.latitude < -90 || data.latitude > 90) {
+    errors.latitude = "Invalid Latitude";
+  }
+
+  if (data.longitude < -180 || data.longitude > 180) {
+    errors.longitude = "Invalid Longitude";
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors),
+  };
+};
