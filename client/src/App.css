@@ -5,6 +5,7 @@ img {
 body {
   background-color: black;
   color: white;
+  width: 100vw;
 }
 
 .landing {
@@ -50,4 +51,41 @@ body {
 
 .navbar .container a {
   color: white;
+}
+
+.btn {
+  background: transparent;
+  color: white;
+  border-width: 2cpx;
+  border-color: white;
+  border-radius: 25px;
+  width: 150px;
+  align-content: center;
+}
+.btn:hover {
+  background-color: white;
+  color: black;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-info:hover {
+  border-color: transparent;
+}
+
+.form-control {
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+.btn-width {
+  width: 50%;
+}
+
+.map {
+  height: 100vh;
 }

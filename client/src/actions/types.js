@@ -1,0 +1,7 @@
+export const GET_ERRORS = "GET_ERRORS";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const GET_LOCATION = "GET_LOCATION";
+const POST_LOADING = "POST_LOADING";
+const GET_POSTS = "GET_POSTS";
+const GET_POST = "GET_POST";
+const ADD_POST = "ADD_POST";
