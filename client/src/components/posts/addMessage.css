@@ -4,3 +4,9 @@
   padding-top: 10px;
   background-color: black;
 }
+
+.modal-content {
+  border: none;
+  border-radius: 5px;
+  margin-top: 30%;
+}

@@ -18,17 +18,6 @@ class map extends Component {
     haveUsersLocation: false,
   };
 
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude, haveUsersLocation: true, zoom: 12 });
-      },
-      () => {
-        alert("Please allow us to know your location.");
-      }
-    );
-  }
-
   render() {
     const position = [this.state.lat, this.state.lng];
     return (

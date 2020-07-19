@@ -27,7 +27,7 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
 
-    window.location.href = "/login";
+    window.location.href = "/";
   }
 }
 
@@ -41,7 +41,7 @@ function App() {
           <div className="contatiner">
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/login" component={Login}></Route>
-            <Route exact path="/post" component={Map}></Route>
+            <Route exact path="/feed" component={Map}></Route>
           </div>
         </div>
       </Router>

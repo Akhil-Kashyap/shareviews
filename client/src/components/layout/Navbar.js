@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import AddMessage from "./addMessage";
+import AddMessage from "../posts/addMessage";
 
 class Navbar extends Component {
   onLogoutClick(e) {
@@ -33,6 +33,8 @@ class Navbar extends Component {
         <li className="nav-item">
           <a href="" onClick={this.onLogoutClick.bind(this)} className="nav-link">
             {"  "}
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            {"  "}
             Logout
           </a>
         </li>
@@ -55,7 +57,7 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-trans">
+      <nav className="navbar navbar-expand-sm navbar-trans mb-2">
         <div className="container">
           <Link className="navbar-brand" to="/">
             ShareView
