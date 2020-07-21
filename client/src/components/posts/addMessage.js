@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { addPost } from "../../actions/postAction";
-// import { getLocation } from "../../actions/locationAction";
+import { getLocation } from "../../actions/locationAction";
 
 import TextFieldGroup from "../common/TextAreaFieldGroup";
 import isEmpty from "../../validation/isEmpty";
@@ -69,6 +69,9 @@ class addMessage extends Component {
     }
 
     this.props.addPost(newPost);
+
+    this.props.getLocation();
+
     let value = this.state.submitted;
     this.setState({ submitted: !value });
     this.setState({ message: "", keyword: "" });
@@ -143,6 +146,7 @@ class addMessage extends Component {
 
 addMessage.propTypes = {
   addPost: PropTypes.func.isRequired,
+  getLocation: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
@@ -152,4 +156,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { addPost })(addMessage);
+export default connect(mapStateToProps, { addPost, getLocation })(addMessage);

@@ -4,16 +4,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import AddMessage from "../posts/addMessage";
+import { resetLocation } from "../../actions/locationAction";
 
 class Navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
 
     this.props.logoutUser();
+    this.props.resetLocation();
   }
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
@@ -31,12 +33,12 @@ class Navbar extends Component {
           <AddMessage></AddMessage>
         </li>
         <li className="nav-item">
-          <a href="" onClick={this.onLogoutClick.bind(this)} className="nav-link">
+          <Link to="/" onClick={this.onLogoutClick.bind(this)} className="nav-link">
             {"  "}
             <i class="fa fa-sign-out" aria-hidden="true"></i>
             {"  "}
             Logout
-          </a>
+          </Link>
         </li>
       </ul>
     );
@@ -85,6 +87,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  resetLocation: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -92,4 +95,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default connect(mapStateToProps, { logoutUser, resetLocation })(Navbar);

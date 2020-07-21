@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { getPosts } from "../../actions/postAction";
+import Spinner from "../common/Spinner";
+import isEmpty from "../../validation/isEmpty";
 
 var myIcon = L.icon({
   iconUrl:
@@ -34,35 +36,60 @@ class map extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!isEmpty(nextProps.location.location)) {
+      this.setState({
+        lat: nextProps.location.location[0],
+        lng: nextProps.location.location[1],
+        zoom: nextProps.location.zoom,
+      });
+    }
+  }
+
   render() {
-    const { posts } = this.props.post;
-    console.log(posts);
+    const { posts, loading } = this.props.post;
+    // console.log(posts);
+    let postContent;
     const position = [this.state.lat, this.state.lng];
-    return (
-      <Map className="map" center={position} zoom={this.state.zoom}>
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position} icon={myIcon}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </Map>
-    );
+
+    if (posts === null || loading) {
+      postContent = <Spinner></Spinner>;
+    } else {
+      postContent = (
+        <Map className="map" center={position} zoom={this.state.zoom}>
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {posts.map((item, index) => {
+            let pos = [item.latitude, item.longitude];
+            console.log(pos);
+            return (
+              <Marker position={pos} icon={myIcon}>
+                <Popup>
+                  {item.name} <br /> <span style={{ fontWeight: "bold" }}>{item.keyword}</span>
+                  {item.text}
+                </Popup>
+              </Marker>
+            );
+          })}
+        </Map>
+      );
+    }
+
+    return <div>{postContent}</div>;
   }
 }
 
 map.propTypes = {
   getPosts: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
-  // location: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   post: state.post,
-  // location: state.location,
+  location: state.location,
 });
 
 export default connect(mapStateToProps, { getPosts })(map);
