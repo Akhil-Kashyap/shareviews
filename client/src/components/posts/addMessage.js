@@ -6,8 +6,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { addPost } from "../../actions/postAction";
+// import { getLocation } from "../../actions/locationAction";
+
 import TextFieldGroup from "../common/TextAreaFieldGroup";
 import isEmpty from "../../validation/isEmpty";
+import Spinner from "../common/Spinner";
 
 import "./addMessage.css";
 
@@ -18,6 +21,8 @@ class addMessage extends Component {
     message: "",
     latitude: 0,
     longitude: 0,
+    submitted: false,
+    sendingMessage: true,
   };
 
   componentDidMount() {
@@ -34,6 +39,16 @@ class addMessage extends Component {
   toggle() {
     let value = this.state.modal;
     this.setState({ modal: !value });
+
+    if (!this.state.submitted) {
+      let v = this.state.submitted;
+      this.setState({ submitted: !v });
+    }
+
+    if (!this.state.sendingMessage) {
+      let v = this.state.sendingMessage;
+      this.setState({ sendingMessage: !v });
+    }
   }
 
   formSubmitted = (e) => {
@@ -54,9 +69,15 @@ class addMessage extends Component {
     }
 
     this.props.addPost(newPost);
-    let value = this.state.modal;
-    this.setState({ modal: !value });
+    let value = this.state.submitted;
+    this.setState({ submitted: !value });
     this.setState({ message: "", keyword: "" });
+
+    setTimeout(() => {
+      this.setState({
+        sendingMessage: false,
+      });
+    }, 3000);
   };
 
   valueChanged = (e) => {
@@ -64,6 +85,40 @@ class addMessage extends Component {
   };
 
   render() {
+    const submitLink = (
+      <CardBody style={{ background: "black" }}>
+        <CardTitle>Welcome to ShareView</CardTitle>
+        <CardText>Leave a message with your location</CardText>
+        <Form onSubmit={this.formSubmitted}>
+          <TextFieldGroup
+            placeholder="Keyword"
+            name="keyword"
+            type="text"
+            value={this.state.keyword}
+            onChange={this.valueChanged}
+          />
+          <TextFieldGroup
+            placeholder="Message"
+            name="message"
+            type="text"
+            value={this.state.message}
+            onChange={this.valueChanged}
+          />
+          <Button>Submit</Button>
+        </Form>
+      </CardBody>
+    );
+
+    const submittedLink = this.state.sendingMessage ? (
+      <Spinner></Spinner>
+    ) : (
+      <CardBody style={{ background: "black" }}>
+        <CardTitle>Thank You for Sharing</CardTitle>
+
+        <CardText>Your Message has been recorded</CardText>
+      </CardBody>
+    );
+
     return (
       <div>
         <Button onClick={this.toggle.bind(this)}>Add Message</Button>
@@ -71,29 +126,7 @@ class addMessage extends Component {
           <ModalHeader toggle={this.toggle.bind(this)} style={{ background: "black" }}>
             Modal title
           </ModalHeader>
-          <ModalBody>
-            <CardBody style={{ background: "black" }}>
-              <CardTitle>Welcome to ShareView</CardTitle>
-              <CardText>Leave a message with your location</CardText>
-              <Form onSubmit={this.formSubmitted}>
-                <TextFieldGroup
-                  placeholder="Keyword"
-                  name="keyword"
-                  type="text"
-                  value={this.state.keyword}
-                  onChange={this.valueChanged}
-                />
-                <TextFieldGroup
-                  placeholder="Message"
-                  name="message"
-                  type="text"
-                  value={this.state.message}
-                  onChange={this.valueChanged}
-                />
-                <Button>Submit</Button>
-              </Form>
-            </CardBody>
-          </ModalBody>
+          <ModalBody>{this.state.submitted ? submitLink : submittedLink}</ModalBody>
           {/* <ModalFooter>
             <Button color="primary" onClick={this.toggle.bind(this)}>
               Submit
