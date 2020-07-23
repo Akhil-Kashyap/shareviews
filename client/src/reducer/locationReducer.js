@@ -10,7 +10,6 @@ export default function (state = initialState, action) {
     case GET_LOCATION: {
       return {
         location: action.payload,
-
         zoom: 13,
       };
     }

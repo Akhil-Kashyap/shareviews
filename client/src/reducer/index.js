@@ -3,10 +3,12 @@ import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 import postReducer from "./postReducer";
 import locationReducer from "./locationReducer";
+import keywordReducer from "./keywordReducer";
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   post: postReducer,
   location: locationReducer,
+  keyword: keywordReducer,
 });

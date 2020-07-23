@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { Card, Button, CardTitle, CardText, FormGroup, Label, Form, Input } from "reactstrap";
 import { Button, Modal, ModalHeader, ModalBody, CardTitle, CardText, Form, CardBody } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -11,6 +10,7 @@ import { getLocation } from "../../actions/locationAction";
 import TextFieldGroup from "../common/TextAreaFieldGroup";
 import isEmpty from "../../validation/isEmpty";
 import Spinner from "../common/Spinner";
+import { getGeoLocation } from "../../utils/getGeoLocation";
 
 import "./addMessage.css";
 
@@ -26,14 +26,9 @@ class addMessage extends Component {
   };
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-      },
-      () => {
-        alert("Please allow us to know your location.");
-      }
-    );
+    getGeoLocation().then((location) => {
+      this.setState({ latitude: location.lat, longitude: location.lng });
+    });
   }
 
   toggle() {
@@ -94,14 +89,14 @@ class addMessage extends Component {
         <CardText>Leave a message with your location</CardText>
         <Form onSubmit={this.formSubmitted}>
           <TextFieldGroup
-            placeholder="Keyword"
+            placeholder="<HEAD> Write the header </HEAD>"
             name="keyword"
             type="text"
             value={this.state.keyword}
             onChange={this.valueChanged}
           />
           <TextFieldGroup
-            placeholder="Message"
+            placeholder="<BODY> Write the body </BODY>"
             name="message"
             type="text"
             value={this.state.message}
@@ -127,7 +122,7 @@ class addMessage extends Component {
         <Button onClick={this.toggle.bind(this)}>Add Message</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)}>
           <ModalHeader toggle={this.toggle.bind(this)} style={{ background: "black" }}>
-            Modal title
+            Add message...
           </ModalHeader>
           <ModalBody>{this.state.submitted ? submitLink : submittedLink}</ModalBody>
           {/* <ModalFooter>

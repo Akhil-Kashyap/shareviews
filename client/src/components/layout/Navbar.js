@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import AddMessage from "../posts/addMessage";
+import Keyword from "../keyword/keyword";
 import { resetLocation } from "../../actions/locationAction";
 
 class Navbar extends Component {
@@ -11,6 +12,7 @@ class Navbar extends Component {
     e.preventDefault();
 
     this.props.logoutUser();
+
     this.props.resetLocation();
   }
 
@@ -35,7 +37,7 @@ class Navbar extends Component {
         <li className="nav-item">
           <Link to="/" onClick={this.onLogoutClick.bind(this)} className="nav-link">
             {"  "}
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <i className="fa fa-sign-out" aria-hidden="true"></i>
             {"  "}
             Logout
           </Link>
@@ -64,6 +66,8 @@ class Navbar extends Component {
           <Link className="navbar-brand" to="/">
             ShareView
           </Link>
+          {this.props.auth.isAuthenticated ? <Keyword></Keyword> : ""}
+
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
             <span className="navbar-toggler-icon" />
           </button>

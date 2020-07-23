@@ -1,0 +1,28 @@
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar {
+  background: transparent;
+  border: 0;
+  border-bottom: solid 1.5px white;
+
+  padding: 0.4rem;
+  float: left;
+  outline: none;
+  color: white;
+}
+
+.search-button {
+  float: left;
+  width: 3%;
+  padding: 0.15rem;
+  background: transparent;
+  margin-left: 2px;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}

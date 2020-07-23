@@ -16,10 +16,10 @@ export const addPost = (postData) => (dispatch) => {
 };
 
 //Get Posts
-export const getPosts = () => (dispatch) => {
+export const getPosts = (keyword) => (dispatch) => {
   dispatch(setPostLoading());
   axios
-    .get("/posts")
+    .get(`/posts/${keyword}`)
     .then((res) =>
       dispatch({
         type: GET_POSTS,
