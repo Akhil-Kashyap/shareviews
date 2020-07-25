@@ -29,7 +29,6 @@ class keyword extends Component {
       let key = "";
       if (this.state.keyword !== "") {
         key = this.state.keyword.toLowerCase();
-        key = key[0].toUpperCase() + key.slice(1);
       }
 
       this.props.setKeyword(key);

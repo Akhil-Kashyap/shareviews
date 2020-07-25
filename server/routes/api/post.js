@@ -10,7 +10,7 @@ const validatePostInput = require("../../validation/post");
 
 //Formatting keyword
 const format = (value) => {
-  return value[0].toUpperCase() + value.slice(1);
+  return value.toLowerCase();
 };
 
 //get array of post
