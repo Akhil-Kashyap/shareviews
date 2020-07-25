@@ -24,8 +24,16 @@ class keyword extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+
     if (this.props.auth.isAuthenticated) {
-      this.props.setKeyword(this.state.keyword);
+      let key = "";
+      if (this.state.keyword !== "") {
+        key = this.state.keyword.toLowerCase();
+        key = key[0].toUpperCase() + key.slice(1);
+      }
+
+      this.props.setKeyword(key);
+      this.setState({ keyword: "" });
     }
   }
 

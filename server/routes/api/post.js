@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 
 //get array of post by keyword
 router.get("/:keyword", (req, res) => {
-  Post.find({ keyword: req.params.keyword })
+  Post.find({ keyword: { $regex: ".*" + req.params.keyword + ".*" } })
     .then((post) => res.json(post))
     .catch((err) => res.status(404));
 });

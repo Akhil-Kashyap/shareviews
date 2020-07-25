@@ -15,14 +15,14 @@ import otherIcon from "./otherIcon.png";
 var userMessageIcon = L.icon({
   iconUrl: userIcon,
   iconSize: [35, 40],
-  iconAnchor: [17.5, 41],
+  iconAnchor: [17.5, 40],
   popupAnchor: [0, -35],
 });
 
 var otherMessageIcon = L.icon({
   iconUrl: otherIcon,
   iconSize: [35, 40],
-  iconAnchor: [17.5, 41],
+  iconAnchor: [17.5, 40],
   popupAnchor: [0, -35],
 });
 
@@ -37,11 +37,19 @@ class map extends Component {
     this.props.getPosts(this.props.keyword.keyword);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (!isEmpty(nextProps.location.location)) {
       this.setState({
         lat: nextProps.location.location[0],
         lng: nextProps.location.location[1],
+        zoom: nextProps.location.zoom,
+      });
+    }
+
+    if (nextProps.location.zoom !== this.state.zoom) {
+      this.setState({
+        lat: 0,
+        lng: 0,
         zoom: nextProps.location.zoom,
       });
     }
@@ -80,7 +88,7 @@ class map extends Component {
             return (
               <Marker position={pos} icon={icon} key={index}>
                 <Popup>
-                  {item.name} <br /> <span style={{ fontWeight: "bold" }}>{item.keyword}: </span>
+                  <span style={{ fontWeight: "bold" }}>{item.name}: </span> <br />
                   {item.text}
                 </Popup>
               </Marker>
