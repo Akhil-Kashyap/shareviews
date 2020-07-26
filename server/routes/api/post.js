@@ -49,9 +49,5 @@ router.post("/", passport.authenticate("jwt", { session: false }), (req, res) =>
 });
 
 //like a post route
-// router.post('/like/:id',passport.authenticate('jwt',{session:false}),
-// (req,res)=>{
-//   Profile
-// })
 
 module.exports = router;
