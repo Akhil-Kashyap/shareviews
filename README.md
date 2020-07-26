@@ -1,9 +1,11 @@
 ## Share Views
 
-A full stack MERN project where a user can share their views on various topics. The page also supports Login and Signup. The posts are displayed as markers on maps based on the geolocations of the person when the posts were created. One can also sort the posts based on queries.
+A full stack MERN project where a user can share their views on various topics. The page also supports Login and Signup. The posts are displayed as markers on maps based on the geolocations of the person when the posts were created. One can also sort the posts based on queries. The project is deployed on : https://share-view.herokuapp.com/
+
+ 
 
 
-#### Front-End - React + Redux
+#### Front-End - React + Redux, Axios & Bootstrap
 
 #### Back-End - Node.js, Express.js & MongoDB
 
