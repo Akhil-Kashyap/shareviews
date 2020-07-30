@@ -63,14 +63,14 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-trans mb-2">
+      <nav className="navbar navbar-expand-sm navbar-trans mb-2 ">
         <div className="container">
           <Link className="navbar-brand" to="/">
             ShareView
           </Link>
           {this.props.auth.isAuthenticated ? <Keyword></Keyword> : ""}
 
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+          <button className="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
             <span className="navbar-toggler-icon" />
           </button>
 
